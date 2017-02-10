@@ -1,3 +1,26 @@
-<h1>
-  {{title}}
-</h1>
+<section class="todoapp">
+  <header class="header">
+    <h1>Todos</h1>
+    <!-- [(property)]="expression" create two-way binding with expression -->
+    <!-- (event)="statement" execute statement when event occured -->
+    <input class="new-todo" placeholder="What needs to be done?" autofocus="" [(ngModel)]="newTodo.title" (keyup.enter)="addTodo()">
+  </header>
+  <section class="main" *ngIf="todos.length > 0">
+    <ul class="todo-list">
+      <!-- For sur les todos, si la todo est complete (true) alors on lui ajoute la class completed-->
+      <li *ngFor="let todo of todos" [class.completed]="todo.complete">
+        <div class="view">
+          <!-- [property]="expression" set property of an element to the value of expression -->
+          <input class="toggle" type="checkbox" (click)="toggleTodoComplete(todo)" [checked]="todo.complete">
+          <label>{{todo.title}}</label>
+          <!-- (event)="statement" execute statement when event occured -->
+          <button class="destroy" (click)="removeTodo(todo)"></button>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <footer class="footer">
+    <span class="todo-count"><strong>{{remainingTodos.length}}</strong> {{remainingTodos.length == 1 ? 'item' : 'items'}} left</span>
+  </footer>
+</section>
